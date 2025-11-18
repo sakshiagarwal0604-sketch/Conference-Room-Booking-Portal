@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us | GovSynapse</title>
+  <link rel="stylesheet" href="style.css" />
+  
+
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <h1 class="logo">GovSynapse</h1>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="booking.html">Book Room</a></li>
+        <li><a href="rooms.html">Rooms</a></li>
+        <li><a href="contact.html" class="active">Contact</a></li>
+        <li><a href="admin.html">Admin Panel</a></li>
+      </ul>
+      <span id="roleTag"></span>
+
+      
+<button class="btn" onclick="logout()" id="logoutBtn" style="display:none;">Logout</button>
+
+
+
+    </nav>
+  </header>
+
+  <section class="contact-section">
+    <div class="contact-container">
+      <h2>Contact Us</h2>
+      <p>
+        Have questions, feedback, or need assistance? Fill out the form below and we’ll get back to you as soon as possible.
+      </p>
+
+      <!-- Contact Form -->
+      <form id="contactForm" class="contact-form">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" name="name" placeholder="Enter your full name" required />
+
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email" required />
+
+        <label for="subject">Subject</label>
+        <input type="text" id="subject" name="subject" placeholder="Enter subject" required />
+
+        <label for="message">Message</label>
+        <textarea id="message" name="message" placeholder="Write your message here..." required></textarea>
+
+        <button type="submit" class="btn">Send Message</button>
+      </form>
+
+      <!-- Contact Details -->
+      <div class="contact-info">
+        <h3>Contact Details</h3>
+        <p><strong>Email:</strong> support@govsynapse.gov.in</p>
+        <p><strong>Phone:</strong> +91 1800-123-4567</p>
+        <p><strong>Address:</strong> Central Secretariat, Jaipur, India</p>
+
+        <div class="social-links">
+          <a href="#">🔗 Facebook</a>
+          <a href="#">🐦 Twitter</a>
+          <a href="#">💼 LinkedIn</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 GovSynapse | All Rights Reserved</p>
+  </footer>
+
+  <!-- ✅ Popup message -->
+  <div id="submissionPopup" class="popup-message">
+    ✅ Your message has been sent. We will contact you shortly.
+  </div>
+
+  <script>
+document.addEventListener("DOMContentLoaded", function () {
+  const form = document.getElementById("contactForm");
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const user = JSON.parse(sessionStorage.getItem("user"));
+    // If the logged-in user is an admin, mark the contact as related to that admin
+    const relatedAdmin = (user && user.role === "admin") ? user.username : null;
+
+    const contact = {
+      name: form.name.value.trim(),
+      email: form.email.value.trim(),
+      subject: form.subject.value.trim(),
+      message: form.message.value.trim(),
+      relatedAdmin: relatedAdmin,
+      createdAt: new Date().toISOString()
+    };
+
+    const all = JSON.parse(localStorage.getItem("contacts")) || [];
+    all.push(contact);
+    localStorage.setItem("contacts", JSON.stringify(all));
+
+    alert("Message submitted successfully ✅");
+    form.reset();
+  });
+});
+</script>
+
+<script src="auth.js"></script>
+
+</body>
+</html>
+

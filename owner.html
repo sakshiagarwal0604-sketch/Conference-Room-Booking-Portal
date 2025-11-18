@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Owner Panel | GovSynapse</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .owner-panel { max-width: 1100px; margin: 2rem auto; padding: 1rem; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; }
+    .card-owner { background:white; border-radius:10px; padding:12px; box-shadow:0 6px 18px rgba(0,0,0,0.06); }
+    .card-owner h4 { margin-bottom:6px; }
+    .small { font-size:0.9rem; color:#666; }
+    .btn-small { padding:8px 10px; border-radius:6px; border:none; cursor:pointer; background:#1abc9c; color:#fff; }
+    .btn-small.gray { background:#888; }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="logo-section">
+      <img src="https://img.icons8.com/external-flatart-icons-outline-flatarticons/64/1a237e/external-meeting-office-flatart-icons-outline-flatarticons.png" alt="logo">
+      <span class="logo-text">GovSynapse</span>
+    </div>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="booking.html">Book a Room</a></li>
+      <li><a href="rooms.html">Rooms</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="admin.html">Admin Panel</a></li>
+    </ul>
+    <span id="roleTag"></span>
+    <button class="btn" onclick="logout()">Logout</button>
+  </nav>
+
+  <main class="owner-panel">
+    <h2>All Bookings</h2>
+    <div id="allBookings" class="cards"></div>
+
+    <h2 style="margin-top:2rem">All Contact Messages</h2>
+    <div id="allContacts" class="cards"></div>
+  </main>
+
+  <footer><p>© 2025 GovSynapse</p></footer>
+
+  <script src="auth.js"></script>
+  <script>
+    if (!checkAuth("owner")) { /* redirected by checkAuth */ }
+
+    const user = JSON.parse(sessionStorage.getItem("user"));
+    document.getElementById("roleTag").innerText = "Role: " + user.role.toUpperCase();
+
+    const allBookingsDiv = document.getElementById("allBookings");
+    const allContactsDiv = document.getElementById("allContacts");
+
+    function renderOwnerView() {
+      const bookings = JSON.parse(localStorage.getItem("bookings")) || [];
+      const contacts = JSON.parse(localStorage.getItem("contacts")) || [];
+
+      allBookingsDiv.innerHTML = bookings.length ? '' : '<p>No bookings yet.</p>';
+      bookings.forEach((b, idx) => {
+        const card = document.createElement('div');
+        card.className = 'card-owner';
+        card.innerHTML = `
+          <h4>${b.room}</h4>
+          <div class="small">Assigned Admin: ${b.assignedAdmin} • Booked By: ${b.bookedBy}</div>
+          <div style="margin-top:8px;">
+            <strong>${b.name}</strong><br>
+            ${b.date} • ${b.time} - ${b.endTime}<br>
+            ${b.phone} • ${b.email}
+          </div>
+          <p style="margin-top:8px">${b.description || ''}</p>
+          <div style="display:flex; gap:10px; margin-top:8px;">
+            <button class="btn-small" data-idx="${idx}" onclick="toggleContacted(${idx})">
+              ${b.contacted ? 'Mark Not Contacted' : 'Mark Contacted'}
+            </button>
+            <button class="btn-small gray" onclick="scrollToContact('${b.email}')">Message Booker</button>
+          </div>
+        `;
+        allBookingsDiv.appendChild(card);
+      });
+
+      allContactsDiv.innerHTML = contacts.length ? '' : '<p>No contact messages yet.</p>';
+      contacts.forEach(c => {
+        const card = document.createElement('div');
+        card.className = 'card-owner';
+        card.innerHTML = `
+          <h4>${c.subject || 'Message'}</h4>
+          <div class="small">From: ${c.name} • ${c.email} ${c.relatedAdmin ? '• Related Admin: ' + c.relatedAdmin : ''}</div>
+          <p style="margin-top:8px">${c.message}</p>
+        `;
+        allContactsDiv.appendChild(card);
+      });
+    }
+
+    // toggle contacted flag for a booking index
+    window.toggleContacted = function(index) {
+      const bookings = JSON.parse(localStorage.getItem("bookings")) || [];
+      if (!bookings[index]) return;
+      bookings[index].contacted = !bookings[index].contacted;
+      localStorage.setItem("bookings", JSON.stringify(bookings));
+      renderOwnerView();
+      alert("Booking updated.");
+    };
+
+    // helper to open contact area or direct user to contact page with prefilled email (simple behaviour)
+    window.scrollToContact = function(email) {
+      // open contact page and prefill email param
+      const url = new URL(window.location.href);
+      // send user to contact.html; you can extend to prefill using query param
+      window.location.href = "contact.html";
+      // (prefilling implementation left minimal to avoid altering contact UI)
+    };
+
+    renderOwnerView();
+  </script>
+</body>
+</html>

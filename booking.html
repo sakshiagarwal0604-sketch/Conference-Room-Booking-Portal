@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Book a Room | GovSynapse</title>
+  <link rel="stylesheet" href="style.css" />
+  
+</head>
+<body>
+  <nav>
+    <div class="logo-section">
+      <img src="https://img.icons8.com/external-flatart-icons-outline-flatarticons/64/1a237e/external-meeting-office-flatart-icons-outline-flatarticons.png" alt="logo">
+      <span class="logo-text">GovSynapse</span>
+    </div>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="booking.html" class="active">Book a Room</a></li>
+      <li><a href="rooms.html">Rooms</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="admin.html">Admin Panel</a></li>
+    </ul>
+    <span id="roleTag"></span>
+
+    
+    <script src="auth.js"></script>
+<script>
+  checkAuth("staff"); // Only staff can access
+
+  // You can keep your existing booking form JS here
+</script>
+
+<button class="btn" onclick="logout()" id="logoutBtn" style="display:none;">Logout</button>
+
+
+
+  </nav>
+
+  <main class="form-container">
+    <h2>Select a Time Slot</h2>
+
+    <div id="calendarControl">
+      <label for="monthSelect">Month:</label>
+      <select id="monthSelect"></select>
+      <label for="yearSelect">Year:</label>
+      <select id="yearSelect"></select>
+      <label for="roomFilter">Room:</label>
+      <select id="roomFilter">
+        <option value="Room A">Room A</option>
+        <option value="Room B">Room B</option>
+        <option value="Room C">Room C</option>
+      </select>
+    </div>
+
+    <div id="calendarView"></div>
+    <div id="timeSlots"></div>
+
+    <form id="bookingForm" style="display:none;margin-top:2rem;">
+      <h2>Fill Booking Details</h2>
+
+      <label for="name">Name:</label>
+      <input type="text" id="name" required>
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" required>
+
+      <label for="phone">Phone Number:</label>
+      <input type="tel" id="phone" required>
+
+      <label for="room">Room:</label>
+      <select id="room" required>
+        <option value="">Select Room</option>
+        <option value="Room A">Room A</option>
+        <option value="Room B">Room B</option>
+        <option value="Room C">Room C</option>
+      </select>
+
+      <label for="date">Date:</label>
+      <input type="date" id="date" readonly required>
+
+      <label for="time">Start Time:</label>
+      <input type="time" id="time" readonly required>
+
+      <label for="duration">Duration:</label>
+      <select id="duration" required>
+        <option value="">Select Duration</option>
+        <option value="1">1 hour</option>
+        <option value="2">2 hours</option>
+        <option value="3">3 hours</option>
+        <option value="4">4 hours</option>
+      </select>
+
+      <label for="endTime">End Time:</label>
+      <input type="time" id="endTime" readonly>
+
+      <label for="description">Description / Purpose:</label>
+      <textarea id="description" name="description" rows="4" placeholder="Enter brief purpose or description of booking" required></textarea>
+
+      <button type="submit">Submit Booking</button>
+    </form>
+
+    <button id="clearBookings" style="display:none;margin-top:1rem;">Clear All Bookings</button>
+    <div id="bookingList" style="margin-top:2rem;"></div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 GovSynapse</p>
+  </footer>
+
+  <script src="script.js"></script>
+ 
+
+</body>
+</html>

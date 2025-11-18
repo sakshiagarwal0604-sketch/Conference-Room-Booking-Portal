@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rooms | GovSynapse</title>
+  <link rel="stylesheet" href="style.css">
+  
+
+</head>
+<body>
+  <nav>
+    <div class="logo-section">
+      <img src="https://img.icons8.com/external-flatart-icons-outline-flatarticons/64/1a237e/external-meeting-office-flatart-icons-outline-flatarticons.png" alt="logo">
+      <span class="logo-text">GovSynapse</span>
+    </div>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="booking.html">Book a Room</a></li>
+      <li><a href="rooms.html" class="active">Rooms</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="admin.html">Admin Panel</a></li>
+    </ul>
+    <span id="roleTag"></span>
+
+    
+<button class="btn" onclick="logout()" id="logoutBtn" style="display:none;">Logout</button>
+
+
+
+  </nav>
+
+  <main class="card-container">
+    <h2>Our Conference Rooms</h2>
+
+    <div class="room-grid">
+      <div class="room-card">
+        <img src="/conferencehall1.webp" alt="Room A">
+        <h3>Room A</h3>
+        <p>Capacity: 15 people</p>
+        <p>AC, Projector, Whiteboard</p>
+      </div>
+
+      <div class="room-card">
+        <img src="/conferencehall2.webp" alt="Room B">
+        <h3>Room B</h3>
+        <p>Capacity: 30 people</p>
+        <p>Video Conferencing, Sound System</p>
+      </div>
+
+      <div class="room-card">
+        <img src="/conferencehall3.webp" alt="Room C">
+        <h3>Room C</h3>
+        <p>Capacity: 50 people</p>
+        <p>Smart Board, Lights, AC</p>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 GovSynapse</p>
+  </footer>
+  <script src="auth.js"></script>
+</body>
+</html>

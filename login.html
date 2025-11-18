@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login - GovSynapse</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+    <div class="logo-section">
+      <img src="https://img.icons8.com/external-flatart-icons-outline-flatarticons/64/1a237e/external-meeting-office-flatart-icons-outline-flatarticons.png" alt="logo">
+      <span class="logo-text">GovSynapse</span>
+    </div>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html" class="active">About Us</a></li>
+      <li><a href="booking.html">Book a Room</a></li>
+      <li><a href="rooms.html">Rooms</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="admin.html">Admin Panel</a></li>
+    </ul>
+    </nav>
+  <div class="login-container">
+    <h2>Login</h2>
+    <form id="login-form" onsubmit="event.preventDefault(); login();">
+      <label for="username">Username</label>
+      <input type="text" id="username" required>
+
+      <label for="password">Password</label>
+      <input type="password" id="password" required>
+
+      <label for="role">Role</label>
+      <select id="role">
+        <option value="staff">Staff</option>
+        <option value="admin">Admin</option>
+        <option value="owner">Owner</option>
+      </select>
+
+      <button type="submit">Login</button>
+      <p id="login-error" style="color:red; display:none;">Invalid credentials!</p>
+    </form>
+  </div>
+
+  <script src="auth.js"></script>
+</body>
+</html>
